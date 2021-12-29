@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/roger.DESKTOP-TLQ98FE/AndroidStudioProjects/NetflixRemak/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2203125" />
+        <entry key="..\:/Users/roger.DESKTOP-TLQ98FE/AndroidStudioProjects/NetflixRemak/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.2203125" />
+        <entry key="..\:/Users/roger.DESKTOP-TLQ98FE/AndroidStudioProjects/NetflixRemak/app/src/main/res/drawable/ic_baseline_play_circolo.xml" value="0.2203125" />
+        <entry key="..\:/Users/roger.DESKTOP-TLQ98FE/AndroidStudioProjects/NetflixRemak/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2203125" />
         <entry key="..\:/Users/roger.DESKTOP-TLQ98FE/AndroidStudioProjects/NetflixRemak/app/src/main/res/drawable/placeholder_bg.xml" value="0.2203125" />
+        <entry key="..\:/Users/roger.DESKTOP-TLQ98FE/AndroidStudioProjects/NetflixRemak/app/src/main/res/drawable/shadows.xml" value="0.25" />
         <entry key="..\:/Users/roger.DESKTOP-TLQ98FE/AndroidStudioProjects/NetflixRemak/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/roger.DESKTOP-TLQ98FE/AndroidStudioProjects/NetflixRemak/app/src/main/res/layout/activity_muvie.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/roger.DESKTOP-TLQ98FE/AndroidStudioProjects/NetflixRemak/app/src/main/res/layout/activity_muvie.xml" value="0.25" />
         <entry key="..\:/Users/roger.DESKTOP-TLQ98FE/AndroidStudioProjects/NetflixRemak/app/src/main/res/layout/activity_muvie2.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/roger.DESKTOP-TLQ98FE/AndroidStudioProjects/NetflixRemak/app/src/main/res/layout/category.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/roger.DESKTOP-TLQ98FE/AndroidStudioProjects/NetflixRemak/app/src/main/res/layout/muve_item.xml" value="0.25" />
