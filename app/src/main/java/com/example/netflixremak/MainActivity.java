@@ -45,14 +45,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(mainAdapter);
     }
 
-    private static class MovieHolder extends RecyclerView.ViewHolder {
+    static class MovieHolder extends RecyclerView.ViewHolder {
         final ImageView ImageUrl;
 
 
         public MovieHolder(@NonNull View itemView) {
             super(itemView); // -> itemView que vem do conteiner principal muve_item pra contruir 
             // quem constroi é o Adapter
-            ImageUrl = itemView.findViewById(R.id.image_view_cover);
+            ImageUrl = itemView.findViewById(R.id.image_view_cover1);
         }
     }
 
@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
            // holder.ImageUrl.setImageResource(movie.getCoverUrl());
 
         }
-
         @Override
         public int getItemCount() {
             return movies.size();
