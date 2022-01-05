@@ -4,18 +4,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.netflixremak.model.Categori;
 import com.example.netflixremak.model.Movie;
-import com.example.netflixremak.util.JsonDownloadTask;
+import com.example.netflixremak.util.CategoryTask;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CategoryTask.CategoryLoader {
+    private MainAdapter mainAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.Recyclerview_main);
         List<Categori> categoris = new ArrayList<>();
+
+        /*
+          Dados fake
         for (int j = 0; j < 10; j++) {
             Categori category = new Categori();
             category.setName("Categoria" + j);
@@ -36,18 +45,25 @@ public class MainActivity extends AppCompatActivity {
             category.setMovies(movies);
             categoris.add(category);
         }
+       */
 
-        MainAdapter mainAdapter = new MainAdapter(categoris);
+         mainAdapter = new MainAdapter(categoris);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(mainAdapter);
 
-        new JsonDownloadTask(this).execute("https://tiagoaguiar.co/api/netflix/home");
+        CategoryTask categoryTask = new CategoryTask(this);
+        categoryTask.setCategoryLoader(this);
+        categoryTask.execute("https://tiagoaguiar.co/api/netflix/home");
+    }
+
+    @Override
+    public void onResult(List<Categori> categoris) {
+        mainAdapter.setCategory(categoris);
+        mainAdapter.notifyDataSetChanged();
     }
 
     static class MovieHolder extends RecyclerView.ViewHolder {
         final ImageView ImageUrl;
-
-
         public MovieHolder(@NonNull View itemView) {
             super(itemView); // -> itemView que vem do conteiner principal muve_item pra contruir 
             // quem constroi é o Adapter
@@ -68,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class MainAdapter extends RecyclerView.Adapter<CategoryHolder> {
-        private final List<Categori> categoris;
+        private List<Categori> categoris;
 
         private MainAdapter(List<Categori> categoris) {
             this.categoris = categoris;
@@ -85,13 +101,19 @@ public class MainActivity extends AppCompatActivity {
             Categori category = categoris.get(position);
             holder.textViewTitulo.setText(category.getName());
             holder.recyclerViewMovie.setAdapter(new MovieAdapter(category.getMovies()));
-            holder.recyclerViewMovie.setLayoutManager(new LinearLayoutManager(getBaseContext(),RecyclerView.HORIZONTAL,false));
+            holder.recyclerViewMovie.setLayoutManager(new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false));
 
         }
 
         @Override
         public int getItemCount() {
             return categoris.size();
+        }
+
+         void setCategory(List<Categori> categoris) {
+            this.categoris.clear();
+            this.categoris.addAll(categoris);
+
         }
     }
 
@@ -111,9 +133,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull MovieHolder holder, int position) {
             Movie movie = movies.get(position);
-           // holder.ImageUrl.setImageResource(movie.getCoverUrl());
+            // holder.ImageUrl.setImageResource(movie.getCoverUrl());
 
         }
+
         @Override
         public int getItemCount() {
             return movies.size();

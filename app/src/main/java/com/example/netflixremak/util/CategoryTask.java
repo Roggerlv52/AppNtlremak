@@ -23,14 +23,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class JsonDownloadTask extends AsyncTask<String, Void, List<Categori>> {
+public class CategoryTask extends AsyncTask<String, Void, List<Categori>> {
     private final WeakReference<Context> context;
     private ProgressDialog dialog;
+    private CategoryLoader categoryLoader;
 
-    public JsonDownloadTask(Context context) {
+
+    public CategoryTask(Context context) {
         this.context = new WeakReference<>(context);
     }
-
+    public void setCategoryLoader(CategoryLoader categoryLoader){
+        this.categoryLoader = categoryLoader;
+    }
     //main-threadd
     @Override
     protected void onPreExecute() {
@@ -100,6 +104,9 @@ public class JsonDownloadTask extends AsyncTask<String, Void, List<Categori>> {
     protected void onPostExecute(List<Categori> categoris) {
         super.onPostExecute(categoris);
         dialog.dismiss();
+        //listener
+        if (categoryLoader != null)
+            categoryLoader.onResult(categoris);
     }
 
     private String toString(InputStream is) throws IOException {
@@ -110,5 +117,9 @@ public class JsonDownloadTask extends AsyncTask<String, Void, List<Categori>> {
             baos.write(bytes, 0, lidos);
         }
         return baos.toString();
+    }
+    public interface CategoryLoader{
+        void onResult(List<Categori>categoris);
+
     }
 }
