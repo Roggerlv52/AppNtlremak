@@ -4,23 +4,17 @@ package com.example.netflixremak.util;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-
 import com.example.netflixremak.model.Categori;
 import com.example.netflixremak.model.Movie;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,11 +54,7 @@ public class JsonDownloadTask extends AsyncTask<String,Void,List<Categori>> {
             List<Categori> categoris = getCategoris(new JSONObject(jsonAsString));
             in.close();
             return categoris;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
         return null;
@@ -109,6 +99,6 @@ public class JsonDownloadTask extends AsyncTask<String,Void,List<Categori>> {
         while ((lidos = is.read(bytes))> 0 ){
             baos.write(bytes,0,lidos);
         }
-        return  new String(baos.toByteArray());
+        return baos.toString();
     }
 }
