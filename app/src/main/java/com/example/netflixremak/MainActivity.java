@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.netflixremak.model.Categori;
 import com.example.netflixremak.model.Movie;
+import com.example.netflixremak.util.JsonDownloadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         mainAdapter = new MainAdapter(categoris);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(mainAdapter);
+
+        new JsonDownloadTask(this).execute("https://tiagoaguiar.co/api/netflix/home");
     }
 
     static class MovieHolder extends RecyclerView.ViewHolder {
