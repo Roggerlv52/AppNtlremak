@@ -18,7 +18,6 @@ public class ImagemDowloaderTesk extends AsyncTask<String, Void, Bitmap> {
     public ImagemDowloaderTesk(ImageView imageView) {
         this.imageViewWeakReference = new WeakReference<>(imageView);
     }
-
     @Override
     protected Bitmap doInBackground(String... params) {
         String urlImagem = params[0];
