@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">NetflixRemak</string>
     <string name="ola_mundo">Ola mundo!!!!</string>
+    <string name="Cast">Elenco: %1$s</string>
+    <string name="Similar">Opções semelhantes</string>
+    <string name="teste_af">hshshshshshsshshshshshshshshhshshshshshshshshhshshshshshshshshhshshshs
+        hshshshshshhshshshshshshhshshshshshshs\ndhdhdhdhdhhdhdhdhdhhdhdhdhhdhdhdhhdhdhdhdhh\ndhdhdhh
+        dhdhdhdhdhhdhdhdhdhdhdhdhhdhdhdhdhdhdhhddhdhdh\n</string>
+    <string name="todo">TODO</string>
+    <string name="op_es_semelhantes">Opções semelhantes</string>
 </resources>
