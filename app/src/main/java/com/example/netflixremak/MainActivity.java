@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.netflixremak.model.Categori;
 import com.example.netflixremak.model.Movie;
@@ -133,9 +134,14 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
 
         @Override
         public void onClick(int position) {
-            Intent intent = new Intent(MainActivity.this, MuvieActivity.class);
-            intent.putExtra("id", movies.get(position).getId());
-            startActivity(intent);
+            if (movies.get(position).getId() <= 3) {
+                Intent intent = new Intent(MainActivity.this, MuvieActivity.class);
+                intent.putExtra("id", movies.get(position).getId());
+                startActivity(intent);
+            }else {
+                Toast.makeText(MainActivity.this, "Este filme esta indisponivel", Toast.LENGTH_SHORT).show();
+
+            }
         }
 
         @NonNull

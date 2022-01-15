@@ -23,14 +23,14 @@ import java.util.List;
 public class MovieDetailTask extends AsyncTask<String, Void, MovieDtalil> {
     private final WeakReference<Context> context;
     private ProgressDialog dialog;
-    private MovieDtalilLoader movieDtalilLoader;
+    private MovieDetalilLoader movieDtalilLoader;
 
     @SuppressWarnings("deprecation")
     public MovieDetailTask(Context context) {
         this.context =new WeakReference<>(context);
     }
 
-    public void setMovieDtalilLoader(MovieDtalilLoader movieDtalilLoader) {
+    public void setMovieDetalilLoader(MovieDetalilLoader movieDtalilLoader) {
         this.movieDtalilLoader = movieDtalilLoader;
     }
 
@@ -117,7 +117,7 @@ public class MovieDetailTask extends AsyncTask<String, Void, MovieDtalil> {
         return baos.toString();
     }
 
-    public interface MovieDtalilLoader{
+    public interface MovieDetalilLoader {
         void onResult(MovieDtalil movieDtalil);
     }
 }

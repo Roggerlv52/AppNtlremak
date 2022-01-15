@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,12 +27,13 @@ import com.example.netflixremak.util.MovieDetailTask;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MuvieActivity extends AppCompatActivity implements MovieDetailTask.MovieDtalilLoader {
+public class MuvieActivity extends AppCompatActivity implements MovieDetailTask.MovieDetalilLoader {
     private TextView txtTitulo;
     private TextView txtDesc;
     private TextView txtCast;
-    RecyclerView recyclerView;
-    MovieAdapter movieAdapter;
+    private RecyclerView recyclerView;
+    private MovieAdapter movieAdapter;
+    private ImageView imgCover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class MuvieActivity extends AppCompatActivity implements MovieDetailTask.
         txtDesc = findViewById(R.id.text_view_desc);
         txtCast = findViewById(R.id.text_view_cast);
         recyclerView = findViewById(R.id.recycleview_Similar);
+        imgCover = findViewById(R.id.image_couver_View);
 
         Toolbar toolbar = findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
@@ -49,14 +54,7 @@ public class MuvieActivity extends AppCompatActivity implements MovieDetailTask.
             getSupportActionBar().setTitle(null);
         }
         //Metodo para trocar imagem dinamicamente
-        LayerDrawable drawable = (LayerDrawable) ContextCompat.getDrawable(this, R.drawable.shadows);
-        if (drawable != null) {
-            Drawable movierCover = ContextCompat.getDrawable(this, R.drawable.movie_4
-            );
-            drawable.setDrawableByLayerId(R.id.coverDlawable, movierCover);
-            ((ImageView) findViewById(R.id.image_couver_View)).setImageDrawable(drawable);
-        }
-
+       // LayerDrawable drawable = (LayerDrawable) ContextCompat.getDrawable(this, R.drawable.shadows);
         List<Movie> movies = new ArrayList<>();
 
         movieAdapter = new MovieAdapter(movies);
@@ -65,20 +63,34 @@ public class MuvieActivity extends AppCompatActivity implements MovieDetailTask.
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            int id = extras.getInt("id");
 
-            MovieDetailTask movieDetailTask = new MovieDetailTask(this);
-            movieDetailTask.setMovieDtalilLoader(this);
-            movieDetailTask.execute("https://tiagoaguiar.co/api/netflix/" + id);
+                int id = extras.getInt("id");
+                MovieDetailTask movieDetailTask = new MovieDetailTask(this);
+                movieDetailTask.setMovieDetalilLoader(this);
+                movieDetailTask.execute("https://tiagoaguiar.co/api/netflix/" + id);
+
+        }else {
+            Toast.makeText(MuvieActivity.this, "Verifique sua conexão", Toast.LENGTH_SHORT).show();
         }
+    }
+            // Metodo para usar seta para voltar
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+          if (item.getItemId() == android.R.id.home)
+              finish();
+        return super.onOptionsItemSelected(item);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onResult(MovieDtalil movieDtalil) {
+
         txtTitulo.setText(movieDtalil.getMovie().getTitle());
         txtDesc.setText(movieDtalil.getMovie().getDesc());
         txtCast.setText(movieDtalil.getMovie().getCast());
+        ImagemDowloaderTesk imagemDowloaderTesk = new ImagemDowloaderTesk(imgCover);
+        imagemDowloaderTesk.setShadowEnabled(true);
+        imagemDowloaderTesk.execute(movieDtalil.getMovie().getCoverUrl());
 
         movieAdapter.setMovies(movieDtalil.getMoviesSimilar());
         movieAdapter.notifyDataSetChanged();
@@ -89,12 +101,12 @@ public class MuvieActivity extends AppCompatActivity implements MovieDetailTask.
 
         public MovieHolder(@NonNull View itemView) {
             super(itemView);
-            imageViewCover = itemView.findViewById(R.id.image_view_cover1);
+            imageViewCover = itemView.findViewById(R.id.image_view_cover2);
         }
     }
 
     private class MovieAdapter extends RecyclerView.Adapter<MovieHolder> {
-        private final List<Movie> movies;
+        private List<Movie> movies;
 
         private MovieAdapter(List<Movie> movies) {
             this.movies = movies;
