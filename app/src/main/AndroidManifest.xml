@@ -16,7 +16,7 @@
 
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".kotilin.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

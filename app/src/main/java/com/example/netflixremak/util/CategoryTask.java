@@ -119,6 +119,11 @@ public class CategoryTask extends AsyncTask<String, Void, List<Categori>> {
         }
         return baos.toString();
     }
+
+    public void setCategoryLoader() {
+
+    }
+
     public interface CategoryLoader{
         void onResult(List<Categori>categoris);
 

@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -86,52 +85,42 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
             super(itemView);
             textViewTitulo = itemView.findViewById(R.id.text_view_titulo);
             recyclerViewMovie = itemView.findViewById(R.id.recycleview_Move);
-
         }
     }
+
     private class MainAdapter extends RecyclerView.Adapter<CategoryHolder> {
         private final List<Categori> categoris;
-
         private MainAdapter(List<Categori> categoris) {
             this.categoris = categoris;
         }
-
-
         @NonNull
         @Override
         public CategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new CategoryHolder(getLayoutInflater().inflate(R.layout.category, parent, false));
         }
-
         @Override
         public void onBindViewHolder(@NonNull CategoryHolder holder, int position) {
             Categori category = categoris.get(position);
             holder.textViewTitulo.setText(category.getName());
             holder.recyclerViewMovie.setAdapter(new MovieAdapter(category.getMovies()));
             holder.recyclerViewMovie.setLayoutManager(new LinearLayoutManager(getBaseContext(), RecyclerView.HORIZONTAL, false));
-
         }
-
         @Override
         public int getItemCount() {
             return categoris.size();
         }
-
         void setCategory(List<Categori> categoris) {
             this.categoris.clear();
             this.categoris.addAll(categoris);
-
         }
-
     }
 
-    private class MovieAdapter extends RecyclerView.Adapter<MovieHolder> implements OnItemClickListener {
+    private class MovieAdapter extends RecyclerView.Adapter<MovieHolder>
+            implements OnItemClickListener {
         private final List<Movie> movies;
-
         private MovieAdapter(List<Movie> movies) {
             this.movies = movies;
         }
-
         @Override
         public void onClick(int position) {
             if (movies.get(position).getId() <= 3) {
@@ -140,24 +129,19 @@ public class MainActivity extends AppCompatActivity implements CategoryTask.Cate
                 startActivity(intent);
             }else {
                 Toast.makeText(MainActivity.this, "Este filme esta indisponivel", Toast.LENGTH_SHORT).show();
-
             }
         }
-
         @NonNull
         @Override
         public MovieHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.muve_item, parent, false);
             return new MovieHolder(view, this);
         }
-
         @Override
         public void onBindViewHolder(@NonNull MovieHolder holder, int position) {
             Movie movie = movies.get(position);
             new ImagemDowloaderTesk(holder.image_view_cover).execute(movie.getCoverUrl());
-
         }
-
         @Override
         public int getItemCount() {
             return movies.size();
